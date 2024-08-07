@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: REPLACEREPONAME-devspace
+  name: REPLACEREPONAME-dev
   displayName: RHODS Quick Course
   description: RHODS Quick Course published using Antora
   icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg
@@ -12,14 +12,14 @@ metadata:
   language: JavaScript
   version: 2.1.1
 starterProjects:
-  - name: REPLACEREPONAME-devspace
+  - name: REPLACEREPONAME-dev
     git:
       remotes:
         origin: 'https://github.com/RedHatTraining/REPLACEREPONAME.git'
 components:
   - name: runtime
     container:
-      image: registry.access.redhat.com/ubi8/nodejs-16:latest
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
       args: ['tail', '-f', '/dev/null']
       memoryLimit: 1024Mi
       mountSources: true
@@ -33,7 +33,7 @@ components:
           name: debug
           targetPort: 5858
 commands:
-  - id: install
+  - id: 0-install
     exec:
       component: runtime
       commandLine: npm install
@@ -41,27 +41,19 @@ commands:
       group:
         kind: build
         isDefault: true
-  - id: run
+  - id: 1-watch
     exec:
       component: runtime
-      commandLine: npm start
+      commandLine: npm run watch:adoc
       workingDir: ${PROJECT_SOURCE}
       group:
         kind: run
         isDefault: true
-  - id: debug
+  - id: 2-serve
     exec:
       component: runtime
-      commandLine: npm run debug
+      commandLine: npm run serve
       workingDir: ${PROJECT_SOURCE}
       group:
-        kind: debug
-        isDefault: true
-  - id: test
-    exec:
-      component: runtime
-      commandLine: npm test
-      workingDir: ${PROJECT_SOURCE}
-      group:
-        kind: test
+        kind: run
         isDefault: true
