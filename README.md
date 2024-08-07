@@ -6,6 +6,8 @@
 
 - On `Create a new repository` page, Select the options as highlighted in the below image and then click `Create repository` button at the bottom of the page.
 
+![create-new-repo.png](./images/create-new-repo.png)
+
 - Clone this repository on your local system:
 ```
 git clone git@github.com:RedHatQuickCourses/my-training-repository.git
@@ -13,7 +15,7 @@ git clone git@github.com:RedHatQuickCourses/my-training-repository.git
 NOTE: Use your repository url in the above command.
 
 - Go in to the course repository directory and initialize the course.
-```
+``` 
 cd my-training-repository/
 sh course-init.sh 
 ```
@@ -35,10 +37,23 @@ antora.yml:title: REPLACE Course Title
  git push origin main 
 ```
 
+- Browse your git repository url 
+
+- On your github repo page, on left hand side pane, click on settings gear icon near `About` heading.
+
+- Click `Use your GitHub Pages website` option to select (checked) it and then click `Save changes` button.
+
+![github-pages-setting](./images/github-pages-setting.png)
+
+- You should now see the link to access the rendered content within that same block.
+
+![quickcourse-rendered-url](./images/quickcourse-rendered-url.png)
+
+FIXME: highlight the relevant area on images.
 
 ## Development using devspace 
 
-- Make sure you have configured your `quay.io` credentials on the OpenShift Dev Spaces portal.
+- Access the devspace url (FIXME: url link)
 
 - Click on `Log in with OpenShift` button.
 
@@ -48,7 +63,11 @@ antora.yml:title: REPLACE Course Title
 
 - On the `Authorize Access` page, under `Requested permissions`, mae sure `user:full` option is selected (ticked) and click on `Allow selected permissions` button.
 
+- Configure your `quay.io` credentials on the OpenShift Dev Spaces portal.
+
 - Click your username on top right and click on `User Preferences` option.
+
+![](./images/devspace-userpreferences.png)
 
 - On the `User Preferences` screen under `Container Registries` tab, click on `Add Container Registry` option.
 
@@ -58,13 +77,17 @@ antora.yml:title: REPLACE Course Title
 **Username:** *your quay.io login* <br>
 **Password:** *your quai.io login* password <br>
 
+![quay-credentials](./images/quay-credentials.png)
 
 - Click on `Create Workspace` option on left pane.
 Under `Import from Git section, provide the Git repo URL for your training and click on `Create & Open` button.
 
+
 NOTE: Make sure you have initialized your training content repository and committed the changes before using it in the devspace.
 
 - Click on the search bar for Workspace on top and click on `Run Task` option, then click `devfile`.
+
+![devspace-runtask](./images/devspace-runtask.png)
 
 - Click on `0-install` option and wait for it to finish.
 
@@ -73,6 +96,8 @@ NOTE: Make sure you have initialized your training content repository and commit
 - Repeat the same steps and select `2-serve` option now.
 
 - Pop-up will be displayed at the bottom of the screen.
+
+![devspace-pop-up](./images/devspace-pop-up.png)
 
 - Create `Open In New Tab` button.
 
