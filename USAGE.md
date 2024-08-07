@@ -16,5 +16,5 @@ Note: You need to modify `antora.yml` file for the new chapter to reflect in you
 
 **SEE ALSO**
 
-[Getting started with a new training content repository](./README.md)
-[Development using devspace](./DEVSPACE.md)
+- [Getting started with a new training content repository](./README.md)
+- [Development using devspace](./DEVSPACE.md)

@@ -60,5 +60,5 @@ FIXME: highlight the relevant area on images.
 
 **SEE ALSO**
 
-[Getting started with a new training content repository](./README.md)
-[Guideline for editing your content](./USAGE.md)
+- [Getting started with a new training content repository](./README.md)
+- [Guideline for editing your content](./USAGE.md)
