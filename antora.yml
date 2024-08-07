@@ -1,5 +1,5 @@
-name: placeholder-course-name
-title: Placeholder Course Title
+name: REPLACEREPONAME
+title: REPLACE Course Title
 version: 1
 nav:
 - modules/ROOT/nav.adoc

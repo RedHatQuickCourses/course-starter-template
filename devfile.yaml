@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: rhods-quick-course
+  name: REPLACEREPONAME-devspace
   displayName: RHODS Quick Course
   description: RHODS Quick Course published using Antora
   icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg
@@ -12,10 +12,10 @@ metadata:
   language: JavaScript
   version: 2.1.1
 starterProjects:
-  - name: rhods-quick-course
+  - name: REPLACEREPONAME-devspace
     git:
       remotes:
-        origin: 'https://github.com/RedHatTraining/rhods-quick-course.git'
+        origin: 'https://github.com/RedHatTraining/REPLACEREPONAME.git'
 components:
   - name: runtime
     container:

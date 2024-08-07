@@ -1,6 +1,6 @@
 site:
   title: Placeholder Course Title
-  start_page: placeholder-course-name::index.adoc
+  start_page: REPLACEREPONAME::index.adoc
 
 content:
   sources:
