@@ -4,6 +4,8 @@
 
 - Click on `Use This template` button and select `Create a new repository` option.
 
+![use-this-template.png](./images/use-this-template.png)
+
 - On `Create a new repository` page, Select the options as highlighted in the below image and then click `Create repository` button at the bottom of the page.
 
 ![create-new-repo.png](./images/create-new-repo.png)
