@@ -19,8 +19,9 @@ NOTE: Use your repository url in the above command.
 - Go in to the course repository directory and initialize the course.
 ``` 
 cd my-training-repository/
-sh course-init.sh 
+sh course-init.sh --type bfx --lab demo
 ```
+NOTE: If you are using Mac, use *zsh* in place of *sh* in the above command.
 
 Sample output:
 ```
