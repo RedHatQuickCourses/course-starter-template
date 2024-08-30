@@ -57,4 +57,4 @@ FIXME: highlight the relevant area on images.
 **SEE ALSO**
 
 - [Development using devspace](./DEVSPACE.md)
-- [Guideline for editing your content](./USAGE.md)
+- [Guideline for editing your content](./USAGEGUIDE.adoc)
