@@ -1,76 +1,79 @@
-## Get the training repository name and replace it with the placeholder string in different files
-REPONAME=$(basename `git rev-parse --show-toplevel`)
-echo -ne "Initializing $REPONAME . . . "
-sed -i "s/REPLACEREPONAME/${REPONAME}/g" *.* > /dev/null 2>&1
-sed -i "s/REPLACEREPONAME/${REPONAME}/g" supplemental-ui/partials/header-content.hbs > /dev/null 2>&1
-echo -e "done"
-
-mv -f README-TRAINING.md README.md
-
-## Automation required for repo customization (like for example TYPE hol or bfx LAB demo or role or other) goes here.
 print_usage()
 {
 	echo -e """
 	USAGE: $0 --type [hol|bfx] --lab [demo|role|other]
-	DEFAULT: $0 --type hol --lab demo
 	"""
 	return
 }
+
+exit_script()
+{
+	#cleanup
+	echo -e "\nPlease replace the FIXME string in the antora.yml file below and commit the changes before proceeding with the course development."
+	grep FIXME antora.yml
+}
+
 handle_lab()
 {
-	case "$1" in 
-		"demo"|"role"|"other" )
-			LAB=$(echo $1)
-			;;
-		* )
-			print_usage
-			exit 1
-			;;
-	esac
+	cp -f modules/LABENV/pages/index-lab-$LAB.adoc modules/LABENV/pages/index.adoc
 }
+
 handle_type()
 {
-        case "$1" in 
-                "hol"|"bfx" )
-                        TYPE=$(echo $1)
+        case "$TYPE" in 
+                "hol" )
+                        rm -rf modules.bfx
+                        ;;
+                "bfx" )
+                        rm -rf modules
+                        mv modules.bfx modules
                         ;;
                 * )
+			echo -e "ERROR: you should never land here"
                         print_usage
                         exit 1
                         ;;
         esac
 }
+
 execute_init()
 {
-	echo -e "Initializing type to $TYPE and lab to $LAB "
-	mv -f modules/LABENV/pages/index-lab-$LAB.adoc modules/LABENV/pages/index.adoc
-	echo -e "TODO: Handling course type is not implemented yet"
-	exit 0
+	## Get the training repository name and replace it with the placeholder string in different files
+	handle_type
+	handle_lab
+	REPONAME=$(basename `git rev-parse --show-toplevel`)
+	echo -ne "Initializing $REPONAME . . . "
+	sed -i "s/course-starter-template/${REPONAME}/g" *.* > /dev/null 2>&1
+	sed -i "s/course-starter-template/${REPONAME}/g" supplemental-ui/partials/header-content.hbs > /dev/null 2>&1
+	echo -e "done"
+	
+	mv -f README-TRAINING.md README.md
 }
-for arg in "$@" 
-do
-	case ${arg} in 
-		"--lab" ) 
-			shift
-			handle_lab $1
-			shift
+
+validate_args()
+{
+	case "$LAB" in 
+		"demo"|"role"|"other" )
 			;;
-		"--type" ) 
-			shift
-			handle_type $1
-			shift
-			;;
-		"--help" )
+		* )
+			echo -e "ERROR: Invalid lab type: $LAB"
 			print_usage
-			exit 0
+			exit 1
 			;;
 	esac
-done
-execute_init
-
-#cleanup()
-echo -e "\nPlease replace the specified strings in the files below and commit the changes before proceeding with the course development."
-grep FIXME *.*
+	case "$TYPE" in 
+		"hol"|"bfx" )
+			;;
+		* )
+			echo -e "ERROR: Invalid course type: $TYPE"
+			print_usage
+			exit 1
+			;;
+	esac
+	execute_init
+	echo -e "Initialized type to $TYPE and lab to $LAB "
+	exit_script
+}
 
 cleanup()
 {
@@ -80,3 +83,35 @@ cleanup()
 	# Remove this script
 	rm -f $0
 }
+
+## Start by validating provided options and initializing variables for arguments
+if [ $# -lt 4 ]
+then
+	echo -e "ERROR: Insufficient arguments"
+	print_usage
+	exit 1
+fi
+
+for arg in "$@" 
+do
+	case ${arg} in 
+		"--lab" ) 
+			shift
+			LAB=$(echo $1)
+			shift
+			;;
+		"--type" ) 
+			shift
+			TYPE=$(echo $1)
+			shift
+			;;
+		"--help" )
+			print_usage
+			exit 0
+			;;
+	esac
+done
+
+validate_args
+
+
