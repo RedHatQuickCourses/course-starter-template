@@ -84,3 +84,9 @@ Table with header row:
 |Cell in column 1, row 3
 |Cell in column 2, row 3
 |===
+
+**SEE ALSO**
+
+- link:./README.md[Getting started with a new training content repository]
+- link:./DEVSPACE.md[Development using devspace]
+
