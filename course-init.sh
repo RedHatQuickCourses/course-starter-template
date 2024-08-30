@@ -9,8 +9,8 @@ print_usage()
 exit_script()
 {
 	#cleanup
-	echo -e "\nPlease replace the FIXME string in the antora.yml file below and commit the changes before proceeding with the course development."
-	grep FIXME antora.yml
+	echo -e "\nPlease replace the FIXME line in the antora.yml and antora-playbook.yml files with the title for this course. \nCommit the changes before proceeding with the course development."
+	grep FIXME antora.yml antora-playbook.yml
 }
 
 handle_lab()
