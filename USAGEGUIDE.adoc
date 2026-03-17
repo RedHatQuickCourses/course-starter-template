@@ -31,17 +31,19 @@ image::sample-image.png[]
 . Numbered Step 1 
 . Numbered Step 2
 +
-[source,bash,role=execute]
+Code block for command with copy button
++
+[source,console,subs="verbatim,quotes"]
 ----
-Code block for command with copy button.
+$ *command 1*
+command 1 output for user reference
+$ *command 2*
+command 2 output
+$ *command 3*
 ----
 +
-.Sample Output
-----
-Code block to show sample output of the command.
-This does not have copy button.
-----
-
+Only commands are picked in the copy buffer without any formating string or output. Multiple commands are combined with ampersand (&&)
++
 . Numbered Step 3
   .. Sub Numbered Step 1
   .. Sub Numbered Step 2
