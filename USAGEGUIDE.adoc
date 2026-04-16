@@ -91,4 +91,5 @@ Table with header row:
 
 - link:./README.md[Getting started with a new training content repository]
 - link:./DEVSPACE.md[Development using devspace]
+- link:./modules/chapter1/pages/tabs-demo.adoc[Tabbed code blocks (Asciidoctor Tabs demo)]
 
