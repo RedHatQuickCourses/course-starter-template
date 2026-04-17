@@ -1,0 +1,37 @@
+= Collapsible blocks
+
+This page demonstrates https://docs.asciidoctor.org/asciidoc/latest/blocks/collapsible/[collapsible example blocks^] in Antora: use them for optional *Hints*, *Deep dives*, or other detail that should not block the main lesson flow.
+
+No extra Antora extension is required; `[%collapsible]` is built into Asciidoctor.
+
+== Hint (collapsed by default)
+
+.Hint
+[%collapsible]
+====
+Try the exercise first; open this only if you are stuck.
+
+* Check that your environment variables are set.
+* Re-read the previous section on configuration.
+====
+
+== Deep dive (collapsed by default)
+
+.Deep dive: how the pipeline stages relate
+[%collapsible]
+====
+The build runs *validate*, then *compile*, then *package*. Skipping a stage can leave artifacts out of date; that is why CI always runs the full chain.
+
+[source,bash]
+----
+./gradlew clean build
+----
+====
+
+== Starts expanded
+
+.Optional context
+[%collapsible%open]
+====
+This block uses `[%collapsible%open]` so it is expanded on first load. Use sparingly when the extra context is still optional but you want it visible by default.
+====

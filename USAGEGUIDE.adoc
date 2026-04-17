@@ -59,6 +59,33 @@ NOTE: Highlighted text for note Callout
 
 WARNING: Highlighted text for warning Callout
 
+=== Collapsible blocks (Deep dive / Hint)
+
+Use `[%collapsible]` on an *example* block so optional detail stays collapsed until the learner expands it. A title line starting with a dot (`.Title`) sets the clickable label (summary).
+
+[source,asciidoc]
+----
+.Hint
+[%collapsible]
+====
+Optional extra detail for curious readers.
+====
+
+.Deep dive: why this works
+[%collapsible]
+====
+Longer explanation, lists, or source blocks go here.
+====
+----
+
+To start expanded instead of collapsed, use `[%collapsible%open]` on the example block.
+
+Use *NOTE* and *WARNING* for short callouts everyone should read. Use collapsible blocks for longer hints or deep dives that would clutter the main lesson path.
+
+Collapsible behavior applies to the **HTML site** from Antora. PDF output from `asciidoctor-pdf` is not interactive; readers typically see all block content without expand/collapse.
+
+Live examples: link:./modules/chapter1/pages/collapsible-demo.adoc[Collapsible blocks demo].
+
 Table without header row:
 
 [cols="1,1"]
@@ -92,4 +119,5 @@ Table with header row:
 - link:./README.md[Getting started with a new training content repository]
 - link:./DEVSPACE.md[Development using devspace]
 - link:./modules/chapter1/pages/tabs-demo.adoc[Tabbed code blocks (Asciidoctor Tabs demo)]
+- link:./modules/chapter1/pages/collapsible-demo.adoc[Collapsible blocks (Deep dive / Hint demo)]
 

@@ -1,0 +1,27 @@
+/* Supplemental styling for Asciidoctor [%collapsible] example blocks (HTML details/summary) */
+
+.sectionbody > details {
+  margin: 0 0 1.25em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sectionbody > details > summary.title {
+  padding: 0.5em 0.75em;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.sectionbody > details > summary.title::-webkit-details-marker {
+  display: none;
+}
+
+.sectionbody > details[open] > summary.title {
+  border-bottom: 1px solid #ccc;
+}
+
+.sectionbody > details > .content {
+  padding: 0.75em 1em;
+}
