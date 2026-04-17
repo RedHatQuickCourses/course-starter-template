@@ -2,7 +2,9 @@
 
 Above is example of top level heading. This is referenced for navigation (previous/next) of the pages in rendered training content.
 
-Use this page (USAGEGUIDE.adoc source file) as reference of the syntax for content drafting. 
+Use this page (USAGEGUIDE.adoc source file) as reference of the syntax for content drafting.
+
+On published HTML pages, an *estimated reading time* appears below the lesson title automatically; no author markup is required.
 
 == Second level heading
 
