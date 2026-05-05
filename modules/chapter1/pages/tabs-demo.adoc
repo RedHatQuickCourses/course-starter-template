@@ -1,0 +1,49 @@
+= Tabbed code blocks
+
+This page demonstrates https://github.com/asciidoctor/asciidoctor-tabs[`@asciidoctor/tabs`^] in Antora: use tabs for multiple languages, or to separate exercise instructions from solutions.
+
+== Language tabs
+
+[tabs]
+====
+Java::
++
+[source,java]
+----
+public class Hello {
+  public static void main(String[] args) {
+    System.out.println("Hello");
+  }
+}
+----
+
+Python::
++
+[source,python]
+----
+def main():
+    print("Hello")
+
+if __name__ == "__main__":
+    main()
+----
+====
+
+== Exercise and solution
+
+[tabs]
+====
+Exercise::
++
+Try writing a function that returns the sum of two integers. Use your language's usual entry point if you need a quick test.
+
+Solution::
++
+[source,javascript]
+----
+function add(a, b) {
+  return a + b;
+}
+console.log(add(2, 3));
+----
+====
