@@ -1,0 +1,40 @@
+= Images
+
+This page demonstrates images, audio, and video stored in `modules/chapter1/images/`.
+The *estimated time* shown below the title includes reading time for the text on this page plus the duration of embedded audio and video.
+
+Copy media files into `modules/chapterN/images/` and reference them with the macros below.
+Local files do not need extra markup; duration is detected automatically when the page loads.
+
+== Image
+
+image::sample-image.jpg[]
+
+== Audio
+
+The sample audio clip is included from the chapter images directory.
+
+audio::audio-file.wav[]
+
+== Video
+
+The sample video clip is included from the chapter images directory.
+
+video::video-file.mp4[]
+
+== External media (manual duration)
+
+When audio or video is hosted outside the course (or embedded from YouTube/Vimeo), the browser cannot always determine duration.
+Set the length in seconds with the `role` attribute on the macro.
+
+This example uses a hypothetical external URL; only the declared duration is counted for estimated time.
+
+audio::https://example.com/lecture.mp3[role=media-seconds-30]
+
+For YouTube or Vimeo embeds, use the same pattern:
+
+video::rS3M00dIxS4[youtube,role=media-seconds-145]
+
+Alternatively, if you know the playback end point, you can use the `end` attribute (seconds from the start of the clip):
+
+audio::https://example.com/clip.mp3[end=90]
