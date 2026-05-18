@@ -8,7 +8,7 @@ Course Title: Course title FIXME
 Description:
 Course description FIXME
 
-Duration: FIXME hours
+Duration: pass:[<span class="course-total-duration" aria-live="polite">…</span>]
 
 == Objectives
 
