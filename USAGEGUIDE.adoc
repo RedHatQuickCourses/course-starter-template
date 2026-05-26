@@ -8,6 +8,8 @@ On published HTML pages, an *estimated time* appears below the lesson title auto
 It combines reading time for the page text (at 200 words per minute) with the duration of any embedded audio and video.
 No author markup is required for local media in `modules/chapterN/images/`.
 
+If the page includes any `audio::` macro, estimated time uses *whichever is longer*: full reading time for the page text, or the *combined* duration of all audio clips—not both. Video time is always added on top.
+
 For external audio, video files, or YouTube/Vimeo embeds where duration cannot be detected automatically, set the length in seconds:
 
 [source,asciidoc]

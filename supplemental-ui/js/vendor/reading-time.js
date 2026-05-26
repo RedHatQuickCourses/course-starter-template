@@ -123,21 +123,41 @@
     return Promise.resolve(manual != null ? manual : 0)
   }
 
-  function collectMediaPromises (article) {
-    var promises = []
+  function pageHasAudio (article) {
+    var found = false
+    article.querySelectorAll('audio').forEach(function (el) {
+      if (!isInsideStripped(el, article)) found = true
+    })
+    return found
+  }
 
-    article.querySelectorAll('audio, video').forEach(function (el) {
+  function sumSeconds (values) {
+    return values.reduce(function (sum, n) {
+      return sum + n
+    }, 0)
+  }
+
+  function collectAudioPromises (article) {
+    var promises = []
+    article.querySelectorAll('audio').forEach(function (el) {
       if (isInsideStripped(el, article)) return
       promises.push(resolveMediaElement(el))
     })
+    return promises
+  }
 
+  function collectVideoPromises (article) {
+    var promises = []
+    article.querySelectorAll('video').forEach(function (el) {
+      if (isInsideStripped(el, article)) return
+      promises.push(resolveMediaElement(el))
+    })
     article.querySelectorAll('.videoblock').forEach(function (block) {
       if (isInsideStripped(block, article)) return
       if (block.querySelector('video')) return
       if (!block.querySelector('iframe')) return
       promises.push(resolveIframeBlock(block))
     })
-
     return promises
   }
 
@@ -168,13 +188,18 @@
       article.insertBefore(p, article.firstChild)
     }
 
-    var mediaPromises = collectMediaPromises(article)
+    var audioPromises = collectAudioPromises(article)
+    var videoPromises = collectVideoPromises(article)
 
-    Promise.all(mediaPromises).then(function (mediaSeconds) {
-      var mediaTotal = mediaSeconds.reduce(function (sum, n) {
-        return sum + n
-      }, 0)
-      var totalSeconds = textSeconds + mediaTotal
+    Promise.all([
+      Promise.all(audioPromises),
+      Promise.all(videoPromises)
+    ]).then(function (results) {
+      var audioTotal = sumSeconds(results[0])
+      var videoTotal = sumSeconds(results[1])
+      var totalSeconds = pageHasAudio(article)
+        ? Math.max(textSeconds, audioTotal) + videoTotal
+        : textSeconds + audioTotal + videoTotal
       p.textContent = 'Estimated time: ' + formatDuration(totalSeconds)
     })
   }

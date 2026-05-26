@@ -120,16 +120,24 @@ async function mediaSecondsFromMacro (macro, moduleDir) {
 }
 
 async function estimatePageSeconds (content, moduleDir) {
-  var words = countWords(stripAdocForWordCount(content))
-  var textSeconds = wordsToSeconds(words)
   var macros = parseMediaMacros(content)
-  var mediaSeconds = 0
+  var hasAudio = macros.some(function (m) {
+    return m.type === 'audio'
+  })
+  var textSeconds = wordsToSeconds(countWords(stripAdocForWordCount(content)))
+  var audioSeconds = 0
+  var videoSeconds = 0
 
   for (var i = 0; i < macros.length; i++) {
-    mediaSeconds += await mediaSecondsFromMacro(macros[i], moduleDir)
+    var sec = await mediaSecondsFromMacro(macros[i], moduleDir)
+    if (macros[i].type === 'audio') audioSeconds += sec
+    else videoSeconds += sec
   }
 
-  var total = textSeconds + mediaSeconds
+  var total = hasAudio
+    ? Math.max(textSeconds, audioSeconds) + videoSeconds
+    : textSeconds + audioSeconds + videoSeconds
+
   return Math.max(1, total)
 }
 
