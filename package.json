@@ -4,11 +4,12 @@
     "@antora/site-generator": "3.1.3",
     "@asciidoctor/tabs": "1.0.0-beta.6",
     "http-server": "^14.1.1",
+    "music-metadata": "^10.7.0",
     "watch": "^0.13.0"
   },
   "scripts": {
-    "build": "antora antora-playbook.yml",
-    "watch:adoc": "watch 'npx antora antora-playbook.yml' ./modules",
+    "build": "node scripts/generate-duration-manifest.js && antora antora-playbook.yml",
+    "watch:adoc": "watch 'node scripts/generate-duration-manifest.js && npx antora antora-playbook.yml' ./modules",
     "serve": "npx http-server build/site -c-1"
   }
 }

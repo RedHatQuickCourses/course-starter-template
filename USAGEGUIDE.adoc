@@ -4,7 +4,26 @@ Above is example of top level heading. This is referenced for navigation (previo
 
 Use this page (USAGEGUIDE.adoc source file) as reference of the syntax for content drafting.
 
-On published HTML pages, an *estimated reading time* appears below the lesson title automatically; no author markup is required.
+On published HTML pages, an *estimated time* appears below the lesson title automatically.
+It combines reading time for the page text (at 200 words per minute) with the duration of any embedded audio and video.
+No author markup is required for local media in `modules/chapterN/images/`.
+
+If the page includes any `audio::` macro, estimated time uses *whichever is longer*: full reading time for the page text, or the *combined* duration of all audio clips—not both. Video time is always added on top.
+
+For external audio, video files, or YouTube/Vimeo embeds where duration cannot be detected automatically, set the length in seconds:
+
+[source,asciidoc]
+----
+audio::https://example.com/lecture.mp3[role=media-seconds-120]
+video::VIDEO_ID[youtube,role=media-seconds-600]
+----
+
+You can also use the `end` attribute when you know the clip length: `audio::url[end=90]`.
+
+See link:./modules/chapter1/pages/images.adoc[Chapter 1 — Images demo] for examples.
+
+The home page (*modules/ROOT/pages/index.adoc*) shows the *total estimated duration* for the course (sum of all pages listed in navigation).
+Run `npm run build` to refresh that total after you add or change content.
 
 == Second level heading
 
@@ -122,4 +141,5 @@ Table with header row:
 - link:./DEVSPACE.md[Development using devspace]
 - link:./modules/chapter1/pages/tabs-demo.adoc[Tabbed code blocks (Asciidoctor Tabs demo)]
 - link:./modules/chapter1/pages/collapsible-demo.adoc[Collapsible blocks (Deep dive / Hint demo)]
+- link:./modules/chapter1/pages/images.adoc[Images, audio, and video (estimated time demo)]
 
