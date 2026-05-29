@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Lab Environment :: FIXME Course Title</title>
-    <link rel="prev" href="../index.html">
-    <link rel="next" href="../chapter1/index.html">
+    <title>Images :: FIXME Course Title</title>
+    <link rel="prev" href="collapsible-demo.html">
+    <link rel="next" href="../chapter2/index.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -49,8 +49,8 @@
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="index.html">Lab Environment</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
   </li>
 </ul>
   </li>
@@ -58,25 +58,25 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter1/index.html">Chapter 1</a>
+    <a class="nav-link" href="index.html">Chapter 1</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section1.html">Section 1</a>
+    <a class="nav-link" href="section1.html">Section 1</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section2.html">Section 2</a>
+    <a class="nav-link" href="section2.html">Section 2</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section3.html">Section 3</a>
+    <a class="nav-link" href="section3.html">Section 3</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/tabs-demo.html">Tabbed code blocks</a>
+    <a class="nav-link" href="tabs-demo.html">Tabbed code blocks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/collapsible-demo.html">Collapsible blocks</a>
+    <a class="nav-link" href="collapsible-demo.html">Collapsible blocks</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/images.html">Images</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="images.html">Images</a>
   </li>
 </ul>
   </li>
@@ -147,7 +147,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FIXME Course Title</a></li>
-    <li><a href="index.html">Lab Environment</a></li>
+    <li><a href="index.html">Chapter 1</a></li>
+    <li><a href="images.html">Images</a></li>
   </ul>
 </nav>
 </div>
@@ -156,13 +157,99 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Lab Environment</h1>
+<h1 class="page">Images</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>FIXME: Instructions for accessing the lab environment for this hands-on based training.</p>
+<p>This page demonstrates images, audio, and video stored in <code>modules/chapter1/images/</code>.
+The <strong>estimated time</strong> shown below the title includes reading time for the text on this page plus the duration of embedded audio and video.</p>
+</div>
+<div class="paragraph">
+<p>Copy media files into <code>modules/chapterN/images/</code> and reference them with the macros below.
+Local files do not need extra markup; duration is detected automatically when the page loads.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_image"><a class="anchor" href="#_image"></a>Image</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="_images/sample-image.jpg" alt="sample image">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_audio"><a class="anchor" href="#_audio"></a>Audio</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The sample audio clip is included from the chapter images directory.</p>
+</div>
+<div class="audioblock">
+<div class="content">
+<audio src="_images/audio-file.wav" controls>
+Your browser does not support the audio tag.
+</audio>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_video"><a class="anchor" href="#_video"></a>Video</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The sample video clip is included from the chapter images directory.</p>
+</div>
+<div class="videoblock">
+<div class="content">
+<video src="_images/video-file.mp4" controls>
+Your browser does not support the video tag.
+</video>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_external_media_manual_duration"><a class="anchor" href="#_external_media_manual_duration"></a>External media (manual duration)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When audio or video is hosted outside the course (or embedded from YouTube/Vimeo), the browser cannot always determine duration.
+Set the length in seconds with the <code>role</code> attribute on the macro.</p>
+</div>
+<div class="paragraph">
+<p>This example uses a hypothetical external URL; only the declared duration is counted for estimated time.</p>
+</div>
+<div class="audioblock media-seconds-30">
+<div class="content">
+<audio src="https://example.com/lecture.mp3" controls>
+Your browser does not support the audio tag.
+</audio>
+</div>
+</div>
+<div class="paragraph">
+<p>For YouTube or Vimeo embeds, use the same pattern:</p>
+</div>
+<div class="videoblock media-seconds-145">
+<div class="content">
+<iframe src="https://www.youtube.com/embed/rS3M00dIxS4?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, if you know the playback end point, you can use the <code>end</code> attribute (seconds from the start of the clip):</p>
+</div>
+<div class="audioblock">
+<div class="content">
+<audio src="https://example.com/clip.mp3#t=,90" controls>
+Your browser does not support the audio tag.
+</audio>
+</div>
+</div>
+</div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../index.html">Home</a></span>
-  <span class="next"><a href="../chapter1/index.html">Chapter 1</a></span>
+  <span class="prev"><a href="collapsible-demo.html">Collapsible blocks</a></span>
+  <span class="next"><a href="../chapter2/index.html">Chapter 2</a></span>
 </nav>
 </article>
   </div>
