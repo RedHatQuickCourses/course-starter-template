@@ -2,6 +2,9 @@
 <script async src="{{{uiRootPath}}}/js/vendor/highlight.js"></script>
 <script defer src="{{{uiRootPath}}}/js/vendor/tabs.js"></script>
 <script defer src="{{{uiRootPath}}}/js/vendor/reading-time.js"></script>
+{{#if page.attributes.audio-src}}
+<script defer src="{{{uiRootPath}}}/js/vendor/audio-transcript.js"></script>
+{{/if}}
 {{#if page.home}}
 <script defer src="{{{uiRootPath}}}/js/vendor/course-total-duration.js"></script>
 {{/if}}
