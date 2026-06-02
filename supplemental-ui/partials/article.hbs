@@ -1,0 +1,7 @@
+<article class="doc"{{#if page.attributes.audio-src}} data-audio-src="{{{page.attributes.audio-src}}}"{{/if}}{{#if page.attributes.transcript-src}} data-transcript-src="{{{page.attributes.transcript-src}}}"{{/if}}>
+{{#with page.title}}
+<h1 class="page">{{{this}}}</h1>
+{{/with}}
+{{{page.contents}}}
+{{> pagination}}
+</article>
