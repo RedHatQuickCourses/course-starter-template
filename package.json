@@ -10,6 +10,7 @@
   "scripts": {
     "build": "node scripts/generate-duration-manifest.js && antora antora-playbook.yml",
     "watch:adoc": "watch 'node scripts/generate-duration-manifest.js && npx antora antora-playbook.yml' ./modules",
-    "serve": "npx http-server build/site -c-1"
+    "serve": "npx http-server build/site -c-1",
+    "generate-pdf": "sh scripts/generate-course-pdf.sh"
   }
 }
