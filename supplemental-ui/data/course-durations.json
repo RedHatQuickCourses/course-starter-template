@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 428,
+  "totalSeconds": 422,
   "pageCount": 15,
   "pages": [
     {
@@ -45,7 +45,7 @@
     {
       "module": "chapter1",
       "page": "images.adoc",
-      "seconds": 271
+      "seconds": 265
     },
     {
       "module": "chapter2",

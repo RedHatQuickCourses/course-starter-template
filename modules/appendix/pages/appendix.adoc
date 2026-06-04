@@ -1,3 +1,7 @@
 = Appendix
 
 FIXME: Content for Appendix...
+
+== Resources
+
+link:{attachmentsdir}/{page-component-name}.pdf[Download Course PDF]
