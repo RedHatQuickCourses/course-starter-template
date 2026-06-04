@@ -6,7 +6,7 @@ OUTPUT_DIR="modules/appendix/attachments"
 
 echo "Generating course PDF: ${REPO_NAME}.pdf"
 
-antora --extension @antora/pdf-extension antora-playbook.yml
+npx antora --extension @antora/pdf-extension antora-playbook.yml
 
 PDF_FILE=$(find build/assembler -name '*.pdf' -type f -size +0 2>/dev/null | head -1)
 if [ -z "$PDF_FILE" ]; then
