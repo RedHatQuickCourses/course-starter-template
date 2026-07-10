@@ -135,6 +135,36 @@ Table with header row:
 |Cell in column 2, row 3
 |===
 
+
+
+=== Adding an Arcade Interactive Demo to a QuickCourse
+You can easily embed an Arcade interactive demo directly into your QuickCourse. Because the embed links directly to your Arcade project, any updates you make in the Arcade platform will automatically reflect in the course.
+
+How to embed:
+
+Copy the HTML snippet below.
+
+Paste it into your QuickCourse where you want the demo to appear.
+
+Replace the src URL ([https://demo.arcade.software/](https://demo.arcade.software/)...) with the shared link from your specific Arcade.
+
+Edit the other settings (width, height, etc.) to match your requirements.
+
+++++
+<iframe 
+  src="https://demo.arcade.software/eUmqr0dRpwc8jSY2QVbH?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+  width="100%" 
+  height="600px" 
+  frameborder="0" 
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+----
+
 **SEE ALSO**
 
 - link:./README.md[Getting started with a new training content repository]
