@@ -149,7 +149,7 @@ Paste it into your QuickCourse where you want the demo to appear.
 Replace the src URL ([https://demo.arcade.software/](https://demo.arcade.software/)...) with the shared link from your specific Arcade.
 
 Edit the other settings (width, height, etc.) to match your requirements.
-
+----
 ++++
 <iframe 
   src="https://demo.arcade.software/eUmqr0dRpwc8jSY2QVbH?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
