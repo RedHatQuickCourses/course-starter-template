@@ -1,11 +1,14 @@
 <script id="site-script" src="{{{uiRootPath}}}/js/site.js" data-ui-root-path="{{{uiRootPath}}}"></script>
 <script async src="{{{uiRootPath}}}/js/vendor/highlight.js"></script>
 <script defer src="{{{uiRootPath}}}/js/vendor/tabs.js"></script>
+{{#unless page.home}}
 <script defer src="{{{uiRootPath}}}/js/vendor/reading-time.js"></script>
+{{/unless}}
 {{#if page.attributes.audio-src}}
 <script defer src="{{{uiRootPath}}}/js/vendor/audio-transcript.js"></script>
 {{/if}}
 {{#if page.home}}
+<script defer src="{{{uiRootPath}}}/js/vendor/course-total-duration-data.js"></script>
 <script defer src="{{{uiRootPath}}}/js/vendor/course-total-duration.js"></script>
 {{/if}}
 {{#if env.SITE_SEARCH_PROVIDER}}

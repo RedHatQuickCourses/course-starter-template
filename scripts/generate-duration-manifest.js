@@ -7,6 +7,7 @@ const core = require('./estimate-duration-core')
 var ROOT = path.resolve(__dirname, '..')
 var antoraYmlPath = path.join(ROOT, 'antora.yml')
 var outputPath = path.join(ROOT, 'supplemental-ui', 'data', 'course-durations.json')
+var outputDataJsPath = path.join(ROOT, 'supplemental-ui', 'js', 'vendor', 'course-total-duration-data.js')
 
 function readNavPaths () {
   var yml = fs.readFileSync(antoraYmlPath, 'utf8')
@@ -70,6 +71,15 @@ async function main () {
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true })
   fs.writeFileSync(outputPath, JSON.stringify(manifest, null, 2) + '\n')
+
+  fs.mkdirSync(path.dirname(outputDataJsPath), { recursive: true })
+  fs.writeFileSync(
+    outputDataJsPath,
+    'window.__courseDuration = ' + JSON.stringify({
+      totalSeconds: totalSeconds,
+      pageCount: pages.length
+    }) + ';\n'
+  )
 
   console.log(
     'course-durations: ' +
