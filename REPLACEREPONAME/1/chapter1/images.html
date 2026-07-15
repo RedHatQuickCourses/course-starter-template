@@ -248,6 +248,42 @@ Your browser does not support the audio tag.
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_passthrough_iframe_manual_duration"><a class="anchor" href="#_passthrough_iframe_manual_duration"></a>Passthrough iframe (manual duration)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When embedding video as raw HTML in a passthrough block, set the length in seconds on the <code>&lt;iframe&gt;</code> tag or on a wrapper element.</p>
+</div>
+<div class="paragraph">
+<p>This example uses a placeholder URL; only the declared duration is counted for estimated time.</p>
+</div>
+<iframe
+  src="https://example.com/embed/video"
+  data-media-duration="240"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+<div class="paragraph">
+<p>Alternatively, wrap the iframe in a div with the same pattern used by the <code>video::</code> macro:</p>
+</div>
+<div class="videoblock media-seconds-180">
+<iframe
+  src="https://example.com/embed/other-video"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  muted>
+</iframe>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="collapsible-demo.html">Collapsible blocks</a></span>
   <span class="next"><a href="../chapter2/index.html">Chapter 2</a></span>
