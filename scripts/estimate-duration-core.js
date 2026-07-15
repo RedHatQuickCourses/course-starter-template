@@ -7,6 +7,8 @@ const mm = require('music-metadata')
 const WPM = 200
 const MEDIA_ROLE_RE = /media-seconds-(\d+)/
 const MEDIA_MACRO_RE = /(?:audio|video)::([^[\]\s]+)\[([^\]]*)\]/g
+const PASSTHROUGH_RE = /^\+\+\+\+[\s\S]*?^\+\+\+\+/gm
+const DATA_DURATION_RE = /data-media-duration=["'](\d+)["']/
 
 function countWords (text) {
   if (!text || !text.trim()) return 0
@@ -19,12 +21,8 @@ function wordsToSeconds (words) {
 }
 
 function formatDuration (totalSeconds) {
-  totalSeconds = Math.max(1, Math.round(totalSeconds))
-  var mins = Math.floor(totalSeconds / 60)
-  var secs = totalSeconds % 60
-  if (mins === 0) return secs + ' sec'
-  if (secs === 0) return mins + ' min'
-  return mins + ' min ' + secs + ' sec'
+  var mins = Math.max(1, Math.round(totalSeconds / 60))
+  return mins + ' min'
 }
 
 function stripAdocForWordCount (content) {
@@ -37,6 +35,7 @@ function stripAdocForWordCount (content) {
   text = text.replace(/^----[\s\S]*?^----$/gm, '')
   text = text.replace(/^\.\w[\s\S]*?^====$/gm, '')
   text = text.replace(/^\[\.[^\]]*\][\s\S]*?^====$/gm, '')
+  text = text.replace(/^\+\+\+\+[\s\S]*?<iframe[\s\S]*?^\+\+\+\+/gim, '')
   text = text.replace(/^(?:audio|video|image)::[^\n]+$/gm, '')
   text = text.replace(/^link:[^\n]+$/gm, '')
   text = text.replace(/^=+\s+.+$/gm, '')
@@ -83,6 +82,27 @@ function manualSecondsFromRole (role) {
   var m = role.match(MEDIA_ROLE_RE)
   if (m) return parseInt(m[1], 10)
   return null
+}
+
+function manualSecondsFromHtml (html) {
+  var dataMatch = html.match(DATA_DURATION_RE)
+  if (dataMatch) return parseInt(dataMatch[1], 10)
+
+  var roleMatch = html.match(MEDIA_ROLE_RE)
+  if (roleMatch) return parseInt(roleMatch[1], 10)
+
+  return 0
+}
+
+function parsePassthroughIframeSeconds (content) {
+  var total = 0
+  var match
+  var re = new RegExp(PASSTHROUGH_RE.source, 'gm')
+  while ((match = re.exec(content)) !== null) {
+    if (!/<iframe\b/i.test(match[0])) continue
+    total += manualSecondsFromHtml(match[0])
+  }
+  return total
 }
 
 function isExternalTarget (target) {
@@ -134,6 +154,8 @@ async function estimatePageSeconds (content, moduleDir) {
     else videoSeconds += sec
   }
 
+  videoSeconds += parsePassthroughIframeSeconds(content)
+
   var total = hasAudio
     ? Math.max(textSeconds, audioSeconds) + videoSeconds
     : textSeconds + audioSeconds + videoSeconds
@@ -149,5 +171,7 @@ module.exports = {
   stripAdocForWordCount,
   parseMediaMacros,
   mediaSecondsFromMacro,
+  manualSecondsFromHtml,
+  parsePassthroughIframeSeconds,
   estimatePageSeconds
 }

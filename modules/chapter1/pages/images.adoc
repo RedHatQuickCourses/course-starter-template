@@ -38,3 +38,39 @@ video::rS3M00dIxS4[youtube,role=media-seconds-145]
 Alternatively, if you know the playback end point, you can use the `end` attribute (seconds from the start of the clip):
 
 audio::https://example.com/clip.mp3[end=90]
+
+== Passthrough iframe (manual duration)
+
+When embedding video as raw HTML in a passthrough block, set the length in seconds on the `<iframe>` tag or on a wrapper element.
+
+This example uses a placeholder URL; only the declared duration is counted for estimated time.
+
+++++
+<iframe
+  src="https://example.com/embed/video"
+  data-media-duration="240"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  webkitallowfullscreen
+  mozallowfullscreen
+  allow="clipboard-write"
+  muted>
+</iframe>
+++++
+
+Alternatively, wrap the iframe in a div with the same pattern used by the `video::` macro:
+
+++++
+<div class="videoblock media-seconds-180">
+<iframe
+  src="https://example.com/embed/other-video"
+  width="100%"
+  height="600px"
+  frameborder="0"
+  allowfullscreen
+  muted>
+</iframe>
+</div>
+++++
