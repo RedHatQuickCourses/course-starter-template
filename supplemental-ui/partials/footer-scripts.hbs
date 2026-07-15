@@ -8,7 +8,7 @@
 <script defer src="{{{uiRootPath}}}/js/vendor/audio-transcript.js"></script>
 {{/if}}
 {{#if page.home}}
-<script defer src="{{{uiRootPath}}}/js/vendor/course-total-duration-data.js"></script>
+{{> course-duration-inline}}
 <script defer src="{{{uiRootPath}}}/js/vendor/course-total-duration.js"></script>
 {{/if}}
 {{#if env.SITE_SEARCH_PROVIDER}}
