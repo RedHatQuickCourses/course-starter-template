@@ -1,1 +1,0 @@
-window.__courseDuration = {"totalSeconds":3998,"pageCount":15};
