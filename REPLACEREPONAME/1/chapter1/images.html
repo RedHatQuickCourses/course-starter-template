@@ -163,22 +163,48 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>This page demonstrates images, audio, and video stored in <code>modules/chapter1/images/</code>.
-The <strong>estimated time</strong> shown below the title includes reading time for the text on this page plus the duration of embedded audio and video.</p>
+The <strong>estimated time</strong> shown below the title includes reading time for the text on this page plus the duration of embedded images, audio, and video.</p>
 </div>
 <div class="paragraph">
 <p>Copy media files into <code>modules/chapterN/images/</code> and reference them with the macros below.
-Local files do not need extra markup; duration is detected automatically when the page loads.</p>
+Local audio and video do not need extra markup; duration is detected automatically when the page loads.
+Each <code>image::</code> macro adds 15 seconds of viewing time by default.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_image"><a class="anchor" href="#_image"></a>Image</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The sample image below uses the default 15-second viewing allowance.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/sample-image.jpg" alt="sample image">
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_image_duration_manual_override"><a class="anchor" href="#_image_duration_manual_override"></a>Image duration (manual override)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Override viewing time for complex diagrams, or exclude decorative images:</p>
+</div>
+<div class="imageblock media-seconds-45">
+<div class="content">
+<img src="_images/sample-image.jpg" alt="sample image">
+</div>
+</div>
+<div class="imageblock media-seconds-0">
+<div class="content">
+<img src="_images/sample-image.jpg" alt="sample image">
+</div>
+</div>
+<div class="paragraph">
+<p>Passthrough diagram HTML can declare duration on the <code>&lt;img&gt;</code> tag:</p>
+</div>
+<img src="https://example.com/diagram.png" data-media-duration="90" alt="Flow diagram">
 </div>
 </div>
 <div class="sect1">
