@@ -5,12 +5,35 @@ Above is example of top level heading. This is referenced for navigation (previo
 Use this page (USAGEGUIDE.adoc source file) as reference of the syntax for content drafting.
 
 On published HTML pages, an *estimated time* appears below the lesson title automatically.
-It combines reading time for the page text (at 200 words per minute) with the duration of any embedded audio and video.
+It combines reading time for the page text (at 200 words per minute) with the duration of any embedded audio, video, and images or diagrams.
 No author markup is required for local media in `modules/chapterN/images/`.
 
-If the page includes any `audio::` macro, estimated time uses *whichever is longer*: full reading time for the page text, or the *combined* duration of all audio clips—not both. Video time is always added on top.
+Each `image::` macro adds *15 seconds* of viewing time by default. Override with `role=media-seconds-N`, or set `role=media-seconds-0` to exclude decorative images:
+
+Refer chapter1 > images.adoc for example.
+
+[source,asciidoc]
+----
+image::architecture-diagram.png[]
+image::complex-diagram.png[role=media-seconds-60]
+image::red-hat-logo.png[role=media-seconds-0]
+----
+
+If the page includes any `audio::` macro, estimated time uses *whichever is longer*: full reading time for the page text, or the *combined* duration of all audio clips—not both. Video, image, and lab time are always added on top.
+
+For hands-on lab or practice pages, set the expected completion time in minutes at the top of the page:
+
+Refer chapter1 > section1.adoc for example.
+
+[source,asciidoc]
+----
+= Lab Exercise: Deploy the Application
+:page-lab-minutes: 30
+----
 
 For external audio, video files, or YouTube/Vimeo embeds where duration cannot be detected automatically, set the length in seconds:
+
+Refer chapter1 > images.adoc for example.
 
 [source,asciidoc]
 ----
@@ -21,6 +44,8 @@ video::VIDEO_ID[youtube,role=media-seconds-600]
 You can also use the `end` attribute when you know the clip length: `audio::url[end=90]`.
 
 For raw iframe embeds in passthrough blocks (`++++`), declare duration with `data-media-duration` on the `<iframe>` tag or a wrapper with class `videoblock media-seconds-N`:
+
+Refer chapter1 > images.adoc for example.
 
 [source,asciidoc]
 ----
@@ -152,6 +177,8 @@ Table with header row:
 |===
 
 === Adding an Arcade Interactive Demo to a QuickCourse
+
+Refer chapter1 > images.adoc for example.
 
 You can easily embed an Arcade interactive demo directly into your QuickCourse. Because the embed links directly to your Arcade project, any updates you make in the Arcade platform will automatically reflect in the course.
 

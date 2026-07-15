@@ -3,7 +3,11 @@
 
   function formatDuration (totalSeconds) {
     var mins = Math.max(1, Math.round(totalSeconds / 60))
-    return mins + ' min'
+    if (mins < 60) return mins + ' min'
+    var hrs = Math.floor(mins / 60)
+    var rem = mins % 60
+    if (rem === 0) return hrs + ' hr'
+    return hrs + ' hr ' + rem + ' min'
   }
 
   function getUiRootPath () {

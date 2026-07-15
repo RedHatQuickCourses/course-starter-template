@@ -2,6 +2,7 @@
   'use strict'
 
   var WPM = 200
+  var DEFAULT_IMAGE_SECONDS = 15
   var MEDIA_TIMEOUT_MS = 3000
   var SELECTORS_TO_STRIP =
     '.listingblock, .literalblock, table, script, style, .tabs, nav.pagination, .source-toolbox'
@@ -19,7 +20,11 @@
 
   function formatDuration (totalSeconds) {
     var mins = Math.max(1, Math.round(totalSeconds / 60))
-    return mins + ' min'
+    if (mins < 60) return mins + ' min'
+    var hrs = Math.floor(mins / 60)
+    var rem = mins % 60
+    if (rem === 0) return hrs + ' hr'
+    return hrs + ' hr ' + rem + ' min'
   }
 
   function isInsideStripped (el, article) {
@@ -43,6 +48,13 @@
       var val = parseInt(dataEl.getAttribute('data-media-duration'), 10)
       if (!isNaN(val) && val > 0) return val
     }
+    return null
+  }
+
+  function parseRoleSeconds (block) {
+    if (!block || !block.className) return null
+    var match = block.className.match(MEDIA_ROLE_RE)
+    if (match) return parseInt(match[1], 10)
     return null
   }
 
@@ -172,6 +184,45 @@
     return promises
   }
 
+  function resolveImageSeconds (imgEl) {
+    var direct = imgEl.getAttribute('data-media-duration')
+    if (direct != null) {
+      var directVal = parseInt(direct, 10)
+      if (!isNaN(directVal) && directVal >= 0) return directVal
+    }
+
+    var imageblock = imgEl.closest('.imageblock')
+    if (imageblock) {
+      var manual = parseRoleSeconds(imageblock)
+      if (manual != null) return manual
+      return DEFAULT_IMAGE_SECONDS
+    }
+
+    var node = imgEl.parentElement
+    while (node) {
+      var ancestorManual = parseRoleSeconds(node)
+      if (ancestorManual != null) return ancestorManual
+      node = node.parentElement
+    }
+
+    return 0
+  }
+
+  function collectImageSeconds (article) {
+    var total = 0
+    article.querySelectorAll('img').forEach(function (el) {
+      if (isInsideStripped(el, article)) return
+      total += resolveImageSeconds(el)
+    })
+    return total
+  }
+
+  function getLabSeconds (article) {
+    var mins = parseInt(article.dataset.labMinutes, 10)
+    if (isNaN(mins) || mins <= 0) return 0
+    return mins * 60
+  }
+
   function init () {
     var article = document.querySelector('article.doc')
     if (!article) return
@@ -201,6 +252,8 @@
 
     var audioPromises = collectAudioPromises(article)
     var videoPromises = collectVideoPromises(article)
+    var imageTotal = collectImageSeconds(article)
+    var labTotal = getLabSeconds(article)
 
     Promise.all([
       Promise.all(audioPromises),
@@ -211,6 +264,7 @@
       var totalSeconds = pageHasAudio(article)
         ? Math.max(textSeconds, audioTotal) + videoTotal
         : textSeconds + audioTotal + videoTotal
+      totalSeconds += imageTotal + labTotal
       p.textContent = 'Estimated time: ' + formatDuration(totalSeconds)
     })
   }
