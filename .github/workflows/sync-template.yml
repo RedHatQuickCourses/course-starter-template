@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      workflows: write
 
     env:
       BASE_REPO: RedHatQuickCourses/course-starter-template
