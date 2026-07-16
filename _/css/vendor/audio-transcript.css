@@ -17,7 +17,7 @@
   align-items: center;
   padding: 0 0.75rem;
   gap: 0.5rem;
-  font-family: Roboto, sans-serif;
+  font-family: "Red Hat Text", sans-serif;
   font-size: 0.83333rem;
   color: #333;
 }
@@ -78,7 +78,7 @@ body.has-audio-player .toc.sidebar .toc-menu ul {
 }
 
 .audio-speed-select {
-  font-family: Roboto, sans-serif;
+  font-family: "Red Hat Text", sans-serif;
   font-weight: 500;
   font-size: 0.77778rem;
   color: #333;
