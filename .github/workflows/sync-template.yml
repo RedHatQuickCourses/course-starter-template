@@ -1,0 +1,128 @@
+name: Sync Template
+
+on:
+  workflow_run:
+    workflows: ["Publish to GitHub Pages"]
+    types:
+      - completed
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sync-template:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      BASE_REPO: RedHatQuickCourses/course-starter-template
+      BASE_BRANCH: main
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Read local template version
+        id: local-version
+        run: |
+          if [ -f template-version.txt ]; then
+            LOCAL_VERSION=$(tr -d '[:space:]' < template-version.txt)
+            echo "version=$LOCAL_VERSION" >> "$GITHUB_OUTPUT"
+            echo "Local template version: $LOCAL_VERSION"
+          else
+            echo "version=" >> "$GITHUB_OUTPUT"
+            echo "::warning::template-version.txt not found, will sync from base template"
+          fi
+
+      - name: Fetch base template version
+        id: remote-version
+        run: |
+          REMOTE_VERSION=$(curl -fsSL \
+            "https://raw.githubusercontent.com/${{ env.BASE_REPO }}/${{ env.BASE_BRANCH }}/template-version.txt" \
+            | tr -d '[:space:]')
+          if [ -z "$REMOTE_VERSION" ]; then
+            echo "::error::Failed to fetch base template version"
+            exit 1
+          fi
+          echo "version=$REMOTE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Base template version: $REMOTE_VERSION"
+
+      - name: Compare versions
+        id: compare
+        run: |
+          LOCAL="${{ steps.local-version.outputs.version }}"
+          REMOTE="${{ steps.remote-version.outputs.version }}"
+
+          if [ -z "$LOCAL" ]; then
+            echo "needs_sync=true" >> "$GITHUB_OUTPUT"
+            echo "Local version not found. Sync required."
+            exit 0
+          fi
+
+          version_gte() {
+            local IFS=.
+            local i ver1=($1) ver2=($2)
+            for ((i=${#ver1[@]}; i<${#ver2[@]}; i++)); do ver1[i]=0; done
+            for ((i=${#ver2[@]}; i<${#ver1[@]}; i++)); do ver2[i]=0; done
+            for ((i=0; i<${#ver1[@]}; i++)); do
+              if ((10#${ver1[i]} > 10#${ver2[i]})); then return 0; fi
+              if ((10#${ver1[i]} < 10#${ver2[i]})); then return 1; fi
+            done
+            return 0
+          }
+
+          if version_gte "$LOCAL" "$REMOTE"; then
+            echo "needs_sync=false" >> "$GITHUB_OUTPUT"
+            echo "Template is up to date (local=$LOCAL, base=$REMOTE). No sync needed."
+          else
+            echo "needs_sync=true" >> "$GITHUB_OUTPUT"
+            echo "Template is outdated (local=$LOCAL, base=$REMOTE). Sync required."
+          fi
+
+      - name: Sync template files
+        if: steps.compare.outputs.needs_sync == 'true'
+        run: |
+          REMOTE_VERSION="${{ steps.remote-version.outputs.version }}"
+
+          echo "::group::Downloading base template $REMOTE_VERSION"
+          TEMP_DIR=$(mktemp -d)
+          curl -fsSL \
+            "https://github.com/${{ env.BASE_REPO }}/archive/refs/heads/${{ env.BASE_BRANCH }}.tar.gz" \
+            -o "$TEMP_DIR/template.tar.gz"
+          tar -xzf "$TEMP_DIR/template.tar.gz" -C "$TEMP_DIR"
+          TEMPLATE_DIR="$TEMP_DIR/course-starter-template-${{ env.BASE_BRANCH }}"
+          echo "::endgroup::"
+
+          echo "::group::Syncing template files"
+          rsync -av --checksum \
+            --exclude='antora.yml' \
+            --exclude='antora-playbook.yml' \
+            --exclude='modules/' \
+            --exclude='.git/' \
+            --exclude='devfile.yaml' \
+            --exclude='supplemental-ui/partials/header-content.hbs' \
+            "$TEMPLATE_DIR/" "./"
+          echo "::endgroup::"
+
+          rm -rf "$TEMP_DIR"
+          echo "Sync complete. Template updated to version $REMOTE_VERSION."
+
+      - name: Commit and push changes
+        if: steps.compare.outputs.needs_sync == 'true'
+        run: |
+          REMOTE_VERSION="${{ steps.remote-version.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No file changes detected after sync"
+          else
+            git commit -m "chore: sync template to version $REMOTE_VERSION [skip ci]"
+            git push
+            echo "Template synced to version $REMOTE_VERSION and pushed."
+          fi
