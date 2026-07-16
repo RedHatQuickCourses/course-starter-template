@@ -122,7 +122,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No file changes detected after sync"
           else
-            git commit -m "chore: sync template to version $REMOTE_VERSION [skip ci]"
+            git commit -m "chore: sync template to version $REMOTE_VERSION"
             git push
             echo "Template synced to version $REMOTE_VERSION and pushed."
           fi
