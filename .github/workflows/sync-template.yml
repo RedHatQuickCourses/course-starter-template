@@ -16,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      workflows: write
 
     env:
       BASE_REPO: RedHatQuickCourses/course-starter-template
@@ -104,6 +103,7 @@ jobs:
             --exclude='antora.yml' \
             --exclude='antora-playbook.yml' \
             --exclude='modules/' \
+            --exclude='.github/workflows/' \
             --exclude='.git/' \
             --exclude='devfile.yaml' \
             --exclude='supplemental-ui/partials/header-content.hbs' \
