@@ -1,62 +1,53 @@
-## Development using devspace 
+## Development using OpenShift Dev Spaces
 
-- Access the devspace url (FIXME: url link)
+Use Dev Spaces when you prefer a browser IDE instead of a local Antora build.
 
-- Click on `Log in with OpenShift` button.
+### 1. Open Dev Spaces for your course repo
 
-- Click on `my_htpasswd_provider` option.
+After you create your repository from the template and run `course-init.sh`, open:
 
-- On the next screen, provide your Username and Password for login.
+**https://devspaces.apps.tools-na100.dev.ole.redhat.com/#https://github.com/RedHatQuickCourses/YOUR-REPO-NAME**
 
-- On the `Authorize Access` page, under `Requested permissions`, mae sure `user:full` option is selected (ticked) and click on `Allow selected permissions` button.
+Replace `YOUR-REPO-NAME` with your repository name (the same value that replaced `REPLACEREPONAME`).
 
-- Configure your `quay.io` credentials on the OpenShift Dev Spaces portal.
+You can also use the Contribute badge in `README-TRAINING.md` after init (it becomes the top of `README.md`).
 
-- Click your username on top right and click on `User Preferences` option.
+### 2. Log in
 
-![](./images/devspace-userpreferences.png)
+1. Click **Log in with OpenShift**.
+2. Choose **my_htpasswd_provider**.
+3. Sign in with your username and password.
+4. On **Authorize Access**, ensure **user:full** is selected, then allow.
 
-- On the `User Preferences` screen under `Container Registries` tab, click on `Add Container Registry` option.
+### 3. Configure quay.io credentials (container registry)
 
-- On the Add Container Registry pop-up provide details as below and the click on `Add` Button.
-
-**Registry:** *quay.io* <br>
-**Username:** *your quay.io login* <br>
-**Password:** *your quai.io login* password <br>
+1. Open **User Preferences** (username menu, top right).
+2. Under **Container Registries**, click **Add Container Registry**.
+3. Registry: `quay.io` — Username: your quay.io login — Password: your quay.io password — then **Add**.
 
 ![quay-credentials](./images/quay-credentials.png)
 
-- Click on `Create Workspace` option on left pane.
-Under `Import from Git section, provide the Git repo URL for your training and click on `Create & Open` button.
+### 4. Create a workspace from Git
 
+1. Click **Create Workspace**.
+2. Under **Import from Git**, paste your training repository URL.
+3. Click **Create & Open**.
 
-NOTE: Make sure you have initialized your training content repository and committed the changes before using it in the devspace.
+NOTE: Initialize the repository (`course-init.sh`) and push those commits before opening Dev Spaces.
 
-- Click on the search bar for Workspace on top and click on `Run Task` option, then click `devfile`.
+### 5. Install, watch, and serve
+
+1. Use the workspace search bar → **Run Task** → **devfile**.
+2. Run **0-install** and wait for it to finish.
+3. Run **1-watch**.
+4. Run **2-serve**.
+5. When prompted, **Open In New Tab** (and allow VS Code to open the external site).
 
 ![devspace-runtask](./images/devspace-runtask.png)
 
-- Click on `0-install` option and wait for it to finish.
-
-- Repeat the earlier step to select devfile and click on `1-watch` option this time.
-
-- Repeat the same steps and select `2-serve` option now.
-
-- Pop-up will be displayed at the bottom of the screen.
-
 ![devspace-pop-up](./images/devspace-pop-up.png)
 
-- Create `Open In New Tab` button.
-
-- On the next pop-up message: `Do you want VS Code - Open Source to open the external website?` click on `Open` button.
-
-- Rendered content will now be displayed in another tab.
-
-- You may continue with your content development in the `vscode` interface provided by devspace.
-
-- When you save your changes in the content files in devspace interface, the changes will be reflected in the rendered content url as soon as you refresh the url.
-
-FIXME: highlight the relevant area on images.
+Rendered content appears in the new tab. Saving AsciiDoc in the Dev Spaces editor updates the preview after refresh.
 
 **SEE ALSO**
 

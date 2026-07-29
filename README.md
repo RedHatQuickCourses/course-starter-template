@@ -1,60 +1,62 @@
 ## Getting started with a new training content repository
 
-- Open the [course-starter-template](https://github.com/RedHatQuickCourses/course-starter-template)
+This is the **Quick Course** starter template used by Content Architects and the **Open Training** program (Know-It / How-To / Break-Fix style content built with Antora + AsciiDoc).
 
-- Click on `Use This template` button and select `Create a new repository` option.
+### 1. Create your repo
 
-![use-this-template.png](./images/use-this-template.png)
+1. Open [course-starter-template](https://github.com/RedHatQuickCourses/course-starter-template)
+2. Click **Use this template** → **Create a new repository**
+3. Create the repo under the RedHatQuickCourses org (or your allowed namespace)
 
-- On `Create a new repository` page, Select the options as highlighted in the below image and then click `Create repository` button at the bottom of the page.
+### 2. Clone and initialize
 
-![create-new-repo.png](./images/create-new-repo.png)
-
-- Clone this repository on your local system:
-```
+```bash
 git clone git@github.com:RedHatQuickCourses/my-training-repository.git
-```
-NOTE: Use your repository url in the above command.
-
-- Go in to the course repository directory and initialize the course.
-``` 
 cd my-training-repository/
-sh course-init.sh --type bfx --lab demo
-```
-NOTE: If you are using Mac, use *zsh* in place of *sh* in the above command.
-
-Sample output:
-```
-Initializing my-training-repository . . . done
-
-Please replace the specified strings in the files below and commit the changes before proceeding with the course development.
-antora.yml:title: REPLACE Course Title
 ```
 
-- Edit the files prompted by course initialization script.
+Initialize the course (macOS: prefer `zsh`):
 
-- Commit the changes done by course initialization script and your manual edits.
-```
- git status 
- git add -A; git commit -m "course initialization"
- git push origin main 
+```bash
+zsh course-init.sh --type hol --lab demo
 ```
 
-- Browse your git repository url 
+| Flag | Values | Meaning |
+| --- | --- | --- |
+| `--type` | `hol` | Standard / hands-on Quick Course module tree (recommended default) |
+| `--type` | `bfx` | Break-fix layout — only if `modules.bfx/` exists in the template |
+| `--lab` | `demo` / `role` / `other` | Selects the LABENV landing page variant |
 
-- On your github repo page, on left hand side pane, click on settings gear icon near `About` heading.
+The script replaces `REPLACEREPONAME` with your repository name, sets the lab index page, swaps in `README-TRAINING.md` as `README.md`, and removes itself.
 
-- Click `Use your GitHub Pages website` option to select (checked) it and then click `Save changes` button.
+Then set the course title in `antora.yml` (replace `FIXME Course Title`) and commit:
 
-![github-pages-setting](./images/github-pages-setting.png)
+```bash
+git add -A
+git commit -m "course initialization"
+git push origin main
+```
 
-- You should now see the link to access the rendered content within that same block.
+### 3. Enable GitHub Pages
 
-![quickcourse-rendered-url](./images/quickcourse-rendered-url.png)
+On the repo **About** / Pages settings, enable GitHub Pages for the site published by Actions (or follow your org’s Pages process). After the first successful publish workflow, use the Pages URL to review rendered content.
 
-FIXME: highlight the relevant area on images.
+PR builds also publish previews via the PR preview workflow.
 
-**SEE ALSO**
+### 4. Author content
 
-- [Development using devspace](./DEVSPACE.md)
-- [Guideline for editing your content](./USAGEGUIDE.adoc)
+* Edit AsciiDoc under `modules/`
+* Syntax and media duration guidance: [USAGEGUIDE.adoc](./USAGEGUIDE.adoc)
+* Local preview: `npm ci && npm run build && npm run serve`
+* Optional Dev Spaces workflow: [DEVSPACE.md](./DEVSPACE.md)
+
+### Audience notes
+
+* **Content Architects (internal PERT builds):** use this template for Antora Quick Courses destined for LMS packaging/SCORM when needed.
+* **Open Training SMEs:** same template; submit ideas via the Open Training intake form and get support in `#help-open-training`.
+
+### See also
+
+* [USAGEGUIDE.adoc](./USAGEGUIDE.adoc) — AsciiDoc / Antora authoring reference
+* [DEVSPACE.md](./DEVSPACE.md) — develop in OpenShift Dev Spaces
+* PERT Confluence: Quick Courses and GitHub hub (team docs)
