@@ -2,6 +2,7 @@
   "devDependencies": {
     "@antora/cli": "^3.2.0-alpha.12",
     "@antora/pdf-extension": "^1.0.0-beta.20",
+    "@antora/lunr-extension": "^1.0.0-alpha.13",
     "@antora/site-generator": "^3.2.0-alpha.12",
     "@asciidoctor/tabs": "1.0.0-beta.6",
     "http-server": "^14.1.1",

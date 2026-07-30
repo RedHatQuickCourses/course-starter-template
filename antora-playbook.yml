@@ -2,6 +2,11 @@ site:
   title: FIXME Course Title
   start_page: REPLACEREPONAME::index.adoc
 
+antora:
+  extensions:
+  - require: '@antora/lunr-extension'
+    index_latest_only: true
+
 content:
   sources:
   - url: ./
