@@ -1,4 +1,16 @@
-image: node:22
+default:
+  image: node:22
+  tags:
+    - itup-alm-x86
+
+variables:
+  KUBERNETES_MEMORY_REQUEST: "2Gi"
+  KUBERNETES_MEMORY_LIMIT: "4Gi"
+  KUBERNETES_CPU_REQUEST: "500m"
+  KUBERNETES_CPU_LIMIT: "1"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  GITLAB_API_URL: "$CI_API_V4_URL"
 
 stages:
   - build
